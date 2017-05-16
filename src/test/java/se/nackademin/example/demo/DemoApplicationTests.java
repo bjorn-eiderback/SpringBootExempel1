@@ -54,14 +54,16 @@ public class DemoApplicationTests {
 	}
 
 	private void clearMinLista() {
-		List<MinLista> resultList = (List<MinLista>) repo.findAll();
+		repo.delete(repo.findAll());
+		//Enklare än:
+		/*List<MinLista> resultList = (List<MinLista>) repo.findAll();
 		try {
 			for (MinLista next : resultList) {
 				repo.delete(next);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 }
