@@ -33,7 +33,7 @@ public class DemoApplicationTests {
 		lista1.getItems().add(item1);
 		entityManager.persist(lista1);
 
-		List<MinLista> findByNameLista = repo.findByName((lista1.getName()));
+		List<MinLista> findByNameLista = repo.findByName(lista1.getName());
 
 		assertThat(findByNameLista).extracting(MinLista::getName).containsOnly(lista1.getName());
 	}
