@@ -50,11 +50,6 @@ public class DemoApplicationTests {
 		assertThat(query.getResultList().size()).isEqualTo(1);
 	}
 
-	@Test
-	public void testFail() {
-		assertThat(1).isEqualTo(2);
-	}
-
 	private void clear() {
 		clearMinLista();
 	}
