@@ -40,6 +40,7 @@ public class DemoApplicationTests {
 
 	@Test
 	public void testQuery() {
+		//Enkelt test av query
 		MinLista lista1 = new MinLista("Lista1");
 		Item item1 = new Item("Ett item");
 		lista1.getItems().add(item1);
