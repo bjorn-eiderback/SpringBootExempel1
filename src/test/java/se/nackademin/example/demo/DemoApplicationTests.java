@@ -46,18 +46,29 @@ public class DemoApplicationTests {
 		MinLista lista1 = new MinLista("Lista1");
 		Item item1 = new Item("Ett item");
 		lista1.getItems().add(item1);
+		entityManager.persist(lista1);
+		Query query = entityManager.getEntityManager().createQuery("SELECT item FROM Item item");
+
+		assertThat(query.getResultList().size()).isEqualTo(1);
+	}
+
+	@Test
+	public void testQueryForDate() {
+		//Enkelt test av query
+		MinLista lista1 = new MinLista("Lista1");
+		Item item1 = new Item("Ett item");
+		lista1.getItems().add(item1);
 		Date datum = new Date();
 		lista1.setDate(datum);
 		entityManager.persist(lista1);
 		Query query = entityManager.getEntityManager().createQuery("SELECT item FROM Item item");
 
-		assertThat(query.getResultList().size()).isEqualTo(1);
-
 		List<MinLista> dateSearch = repo.findByDate(new Date());
 		assertThat(dateSearch.size()).isEqualTo(1);
 	}
 
-    private void clear() {
+
+	private void clear() {
 		clearMinLista();
 	}
 
