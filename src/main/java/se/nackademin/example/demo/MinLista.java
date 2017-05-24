@@ -11,9 +11,14 @@ public class MinLista {
     @GeneratedValue
     private Long id;
     private String name;
+    //Vi skapar en date för datumet. Vi markerar det som TemporalType.DATE så att det bara tolkas som date
     @Temporal(value = TemporalType.DATE)
     private Date date;
+    //och vi hanterar klockslaget i ett Date med typen TemporalType.TIME
+    @Temporal(value = TemporalType.TIME)
+    private Date time;
 
+    //Vi vill att ändringar ska propagera till delarna och att "items" ska hämtas då vi hämtar en lista
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Item> items = new ArrayList<>();
 
@@ -54,5 +59,13 @@ public class MinLista {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
     }
 }

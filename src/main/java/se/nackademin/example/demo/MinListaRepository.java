@@ -9,4 +9,6 @@ import java.util.List;
 public interface MinListaRepository extends CrudRepository<MinLista, Long> {
     List<MinLista> findByName(String name);
     List<MinLista> findByDate(Date date);
+    List<MinLista> findByTime(Date time);
+    List<MinLista> findByDateAndTime(Date date, Date time);
 }

@@ -14,6 +14,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
 
+
+//För enkelhets skull använder vi Date direkt trots att vissa av Date:s konstruktorer är deprikerade!
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class DemoApplicationTests {
@@ -53,20 +56,89 @@ public class DemoApplicationTests {
 	}
 
 	@Test
-	public void testQueryForDate() {
-		//Enkelt test av query
-		MinLista lista1 = new MinLista("Lista1");
+	public void testDate() {
+		String lista1sNamn = "Lista1";
+		MinLista lista1 = new MinLista(lista1sNamn);
+		String lista2sNamn = "Lista2";
+		MinLista lista2 = new MinLista(lista2sNamn);
+
 		Item item1 = new Item("Ett item");
 		lista1.getItems().add(item1);
-		Date datum = new Date();
-		lista1.setDate(datum);
-		entityManager.persist(lista1);
-		Query query = entityManager.getEntityManager().createQuery("SELECT item FROM Item item");
+		Date datum1 = new Date(117, 4, 5);
+		Date datum2 = new Date(117, 4, 7);
+		lista1.setDate(datum1);
+		lista2.setDate(datum2);
 
-		List<MinLista> dateSearch = repo.findByDate(new Date());
+		Item item1Lista2 = new Item("Ett item lista2");
+		lista2.getItems().add(item1Lista2);
+		entityManager.persist(lista1);
+		entityManager.persist(lista2);
+		Date searchDatum = new Date(117, 4, 5);
+		List<MinLista> dateSearch = repo.findByDate(searchDatum);
 		assertThat(dateSearch.size()).isEqualTo(1);
 	}
 
+	@Test
+	public void testTime() {
+		String lista1sNamn = "Lista1";
+		MinLista lista1 = new MinLista(lista1sNamn);
+		String lista2sNamn = "Lista2";
+		MinLista lista2 = new MinLista(lista2sNamn);
+
+		Item item1 = new Item("Ett item");
+		lista1.getItems().add(item1);
+		Date datum1 = new Date(117, 4, 5);
+		Date datum2 = new Date(117, 4, 7);
+		Date time1 = new Date(0, 0, 0, 10, 20);
+		Date time2 = new Date(0, 0, 0, 8, 10);
+
+		lista1.setDate(datum1);
+		lista1.setTime(time1);
+		lista2.setDate(datum2);
+		lista2.setTime(time2);
+
+		Item item1Lista2 = new Item("Ett item lista2");
+		lista2.getItems().add(item1Lista2);
+		entityManager.persist(lista1);
+		entityManager.persist(lista2);
+		Date searchDatum = new Date(117, 4, 5);
+		List<MinLista> dateSearch = repo.findByDate(searchDatum);
+		assertThat(dateSearch.size()).isEqualTo(1);
+		List<MinLista> timeSearch = repo.findByTime(time1);
+		assertThat(timeSearch.size()).isEqualTo(1);
+	}
+
+	@Test
+	public void testTimeAndDate() {
+		String lista1sNamn = "Lista1";
+		MinLista lista1 = new MinLista(lista1sNamn);
+		String lista2sNamn = "Lista2";
+		MinLista lista2 = new MinLista(lista2sNamn);
+
+		Item item1 = new Item("Ett item");
+		lista1.getItems().add(item1);
+		Date datum1 = new Date(117, 4, 5);
+		Date time1 = new Date(0, 0, 0, 10, 20);
+		Date time2 = new Date(0, 0, 0, 8, 10);
+
+		lista1.setDate(datum1);
+		lista1.setTime(time1);
+		lista2.setDate(datum1);
+		lista2.setTime(time2);
+
+		Item item1Lista2 = new Item("Ett item lista2");
+		lista2.getItems().add(item1Lista2);
+		entityManager.persist(lista1);
+		entityManager.persist(lista2);
+		Date searchDatum = new Date(117, 4, 5);
+		Date searchTime = new Date(0, 0, 0, 10, 20);
+
+		List<MinLista> timeSearch = repo.findByTime(time1);
+		assertThat(timeSearch.size()).isEqualTo(1);		entityManager.persist(lista1);
+
+		List<MinLista> dateSearch = repo.findByDateAndTime(searchDatum, searchTime);
+		assertThat(dateSearch.size()).isEqualTo(1);
+	}
 
 	private void clear() {
 		clearMinLista();
