@@ -2,6 +2,7 @@ package se.nackademin.example.demo;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -10,6 +11,8 @@ public class MinLista {
     @GeneratedValue
     private Long id;
     private String name;
+    @Temporal(value = TemporalType.DATE)
+    private Date date;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Item> items = new ArrayList<>();
@@ -43,5 +46,13 @@ public class MinLista {
 
     public void setItems(List<Item> items) {
         this.items = items;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

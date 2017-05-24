@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 import javax.persistence.*;
 
+import java.util.Date;
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
@@ -45,10 +46,15 @@ public class DemoApplicationTests {
 		MinLista lista1 = new MinLista("Lista1");
 		Item item1 = new Item("Ett item");
 		lista1.getItems().add(item1);
+		Date datum = new Date();
+		lista1.setDate(datum);
 		entityManager.persist(lista1);
 		Query query = entityManager.getEntityManager().createQuery("SELECT item FROM Item item");
 
 		assertThat(query.getResultList().size()).isEqualTo(1);
+
+		List<MinLista> svar = repo.findByDate(new Date());
+		System.out.println("Svar: " + svar);
 	}
 
     private void clear() {
