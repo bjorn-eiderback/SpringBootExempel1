@@ -176,6 +176,36 @@ public class DemoApplicationTests {
 		assertThat(searchResult2.size()).isEqualTo(0);
 	}
 
+	@Test
+	public void testBetweenDates() {
+		String lista1sNamn = "Lista1";
+		MinLista lista1 = new MinLista(lista1sNamn);
+		String lista2sNamn = "Lista2";
+		MinLista lista2 = new MinLista(lista2sNamn);
+		String lista3sNamn = "Lista3";
+		MinLista lista3 = new MinLista(lista3sNamn);
+
+		Item item1 = new Item("Ett item");
+		lista1.getItems().add(item1);
+		Date datum1 = new Date(117, 4, 5);
+		Date datum2 = new Date(117, 4, 6);
+		Date datum3 = new Date(117, 4, 7);
+
+		lista1.setDate(datum1);
+		lista2.setDate(datum2);
+		lista3.setDate(datum3);
+
+		Item item1Lista2 = new Item("Ett item lista2");
+		lista2.getItems().add(item1Lista2);
+		entityManager.persist(lista1);
+		entityManager.persist(lista2);
+		entityManager.persist(lista3);
+		Date firstDate = new Date(117, 4, 4);
+		Date secondDate = new Date(117, 4, 6);
+		List<MinLista> reusult = repo.findByDateBetween(firstDate, secondDate);
+		assertThat(reusult.size()).isEqualTo(2);
+	}
+
 	private void clear() {
 		clearMinLista();
 	}
