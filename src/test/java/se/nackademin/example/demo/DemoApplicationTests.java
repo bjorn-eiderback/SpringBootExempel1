@@ -53,8 +53,8 @@ public class DemoApplicationTests {
 
 		assertThat(query.getResultList().size()).isEqualTo(1);
 
-		List<MinLista> svar = repo.findByDate(new Date());
-		System.out.println("Svar: " + svar);
+		List<MinLista> dateSearch = repo.findByDate(new Date());
+		assertThat(dateSearch.size()).isEqualTo(1);
 	}
 
     private void clear() {
