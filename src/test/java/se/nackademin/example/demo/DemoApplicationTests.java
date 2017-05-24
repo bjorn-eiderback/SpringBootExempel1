@@ -202,8 +202,8 @@ public class DemoApplicationTests {
 		entityManager.persist(lista3);
 		Date firstDate = new Date(117, 4, 4);
 		Date secondDate = new Date(117, 4, 6);
-		List<MinLista> reusult = repo.findByDateBetween(firstDate, secondDate);
-		assertThat(reusult.size()).isEqualTo(2);
+		List<MinLista> result = repo.findByDateBetween(firstDate, secondDate);
+		assertThat(result.size()).isEqualTo(2);
 	}
 
 	private void clear() {
