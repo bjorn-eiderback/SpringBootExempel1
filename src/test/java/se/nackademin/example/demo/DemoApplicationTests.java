@@ -11,6 +11,7 @@ import javax.persistence.*;
 
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertFalse;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -50,7 +51,12 @@ public class DemoApplicationTests {
 		assertThat(query.getResultList().size()).isEqualTo(1);
 	}
 
-	private void clear() {
+    @Test
+    public void xxxx() throws Exception {
+	    assertFalse(true);
+    }
+
+    private void clear() {
 		clearMinLista();
 	}
 
