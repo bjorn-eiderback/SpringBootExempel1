@@ -12,13 +12,15 @@ public class MinLista {
     private Long id;
     private String name;
     //Vi skapar en date för datumet. Vi markerar det som TemporalType.DATE så att det bara tolkas som date
+    //(vi väljer att sätta datum och klocklslag på listan och inte på item i detta exempel)
     @Temporal(value = TemporalType.DATE)
     private Date date;
     //och vi hanterar klockslaget i ett Date med typen TemporalType.TIME
     @Temporal(value = TemporalType.TIME)
     private Date time;
 
-    //Vi vill att ändringar ska propagera till delarna och att "items" ska hämtas då vi hämtar en lista
+    //Vi vill att ändringar ska propagera till delarna och att "items" ska hämtas (EAGER) då vi hämtar en lista
+    //Observera att relationen är enkelriktad från listan till dess delar
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Item> items = new ArrayList<>();
 
